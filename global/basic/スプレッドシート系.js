@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 ///////   関数や変数を作成した際には必ず説明補足等を乗せること！   ///////
-///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 /** GID付きのURLからスプレッドシートのシートを取得する関数
  * @param  {[URL]} sheetURL : 取得したいシートのURL
  * @return {[Sheet] targetSheet (GIDから取得したスプシ内のシート)}
 **/
-function getSheetForURL (sheetURL) {
+function getSheetForURL(sheetURL) {
   var vals = sheetURL.split('/edit#gid=');        /// URLを "/edit#gid=" で前後に分割
   var targetGID = vals[1];                        /// 後ろ部分がGID
   var valsIncledeSSKey = vals[0].split('/');      /// スプシのキーを含む前半部分を更に '/' で分割
@@ -24,7 +24,7 @@ function getSheetForURL (sheetURL) {
  * @param  {[Spreadsheet]} targetSS : 指定したスプレッドシート
  * @return {[values] valueSheetNames (シート名の一覧を格納した1次元配列)}
 **/
-function getSheetNames (targetSS) {
+function getSheetNames(targetSS) {
   var sheets = targetSS.getSheets();
   var valueSheetNames = [];
   if (sheets.length >= 1) {
