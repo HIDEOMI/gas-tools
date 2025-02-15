@@ -84,7 +84,7 @@ function setValues2Cells(targetSh, pointStart, values) {
  *  @return {[void] 指定したシートに値が入力される}
 **/
 function setValuesAsALine(targetSh, pointStart, values) {
-  if (values[0] == undefined || values == []) {
+  if (values[0] === undefined || values == []) {
     return;
   }
   let linedValues = [];

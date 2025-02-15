@@ -1,12 +1,17 @@
 /////////////////////////////////////////////////////////////////
 ///////   関数や変数を作成した際には必ず説明補足等を乗せること！   ///////
 /////////////////////////////////////////////////////////////////
-/**  slackへメッセージ送信するための関数  */
+/** slackへメッセージ送信するための関数
+ * @param {string} text 送信するメッセージ
+ * @param {string} channel 送信するチャンネル
+ * @param {string} URLWebhook Webhook URL
+ * @return {void}
+**/
 function postSlack(text, channel, URLWebhook) {
-  if (text.indexOf('\\n') != -1) {  /// 改行コード変更
+  if (text.indexOf('\\n') !== -1) {  // 改行コード変更
     text.replace('\\n', '\n');
   }
-  /// payload ///
+  // payloadの設定
   const payload = {
     'username': "Notification",
     'text': text,

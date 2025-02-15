@@ -5,11 +5,11 @@
  *  @param  {[URL]} targetURL : 対象のURL
  *  @return {[ID] ID (TRUE 抜き出されたID, FALSE "")}
 **/
-function URL2ID (targetURL) {
-  var aryURL = targetURL.split('/');
-  var ID = "";
+function URL2ID(targetURL) {
+  const aryURL = targetURL.split('/');
+  let ID = "";
   /// スプレッドシートのURLの場合 ///
-  var numIndex = aryURL.indexOf("spreadsheets");
+  let numIndex = aryURL.indexOf("spreadsheets");
   if (numIndex != -1) {
     ID = aryURL[numIndex + 2];
     return ID;
@@ -29,15 +29,15 @@ function URL2ID (targetURL) {
  *  @param  {[folderName]} searchFolderName : 検索するフォルダ名
  *  @return {[ID] ansID (TRUE 検索対象名に一致するフォルダのIDを返す, FALSE ""を返す)}
 **/
-function searchAndGetFolderID (folderID, searchFolderName) {
-  var folder = DriveApp.getFolderById(folderID);
-  var chldFolder = folder.getFolders();   /// 子フォルダの一覧を取得
-  var ansID = "";
-  while (chldFolder.hasNext()) {   /// 子フォルダを回す
-    var targetFolderName = chldFolder.next();   /// 名前を取得
+function searchAndGetFolderID(folderID, searchFolderName) {
+  const folder = DriveApp.getFolderById(folderID);
+  const chldFolder = folder.getFolders();   // 子フォルダの一覧を取得
+  let ansID = "";
+  while (chldFolder.hasNext()) {   // 子フォルダを回す
+    const targetFolderName = chldFolder.next();   // 名前を取得
     if (targetFolderName == searchFolderName) {
-      /// 検索したいフォルダ名と一致した場合
-      ansID = targetFolderName.getId();   /// フォルダIDを取得
+      // 検索したいフォルダ名と一致した場合
+      ansID = targetFolderName.getId();   // フォルダIDを取得
       break;
     }
   }
@@ -48,15 +48,15 @@ function searchAndGetFolderID (folderID, searchFolderName) {
  *  @param  {[fileName]} searchFileName : 検索するファイル名
  *  @return {[ID] ansID (TRUE 検索対象名に一致するファイルのIDを返す, FALSE 0を返す)}
 **/
-function searchAndGetFileID (folderID, searchFileName) {
-  var folder = DriveApp.getFolderById(folderID);
-  var chldFile = folder.getFiles();   /// 子ファイルの一覧を取得
-  var ansID = "";
-  while (chldFile.hasNext()) {   /// 子ファイルを回す
-    var targetFileName = chldFile.next();   /// 名前を取得
+function searchAndGetFileID(folderID, searchFileName) {
+  const folder = DriveApp.getFolderById(folderID);
+  const chldFile = folder.getFiles();   // 子ファイルの一覧を取得
+  let ansID = "";
+  while (chldFile.hasNext()) {   // 子ファイルを回す
+    let targetFileName = chldFile.next();   // 名前を取得
     if (targetFileName == searchFileName) {
-      /// 検索したいファイル名と一致した場合
-      ansID = targetFileName.getId();   /// ファイルIDを取得
+      // 検索したいファイル名と一致した場合
+      ansID = targetFileName.getId();   // ファイルIDを取得
       break;
     }
   }
@@ -66,30 +66,30 @@ function searchAndGetFileID (folderID, searchFileName) {
  *  @param  {[ID]} saveFolderID : フォルダを保存するフォルダのID
  *  @param  {[fileName]} fileName : 作成するファイル名
  *  @param  {[string]} content : ファイルの内容
- *  @return {[ID]] newFileID (ファイルが作成された　TRUE：作成ファイルのID, FALSE)}
+ *  @return {[ID]] newFileID (ファイルが作成された TRUE:作成ファイルのID, FALSE)}
 **/
-function createTextFile (saveFolderID, fileName, content) {
-  var contentType = 'text/plain';
-  var charset = 'utf-8';
+function createTextFile(saveFolderID, fileName, content) {
+  const contentType = 'text/plain';
+  const charset = 'utf-8';
   // Blob を作成する
-  var blob = Utilities.newBlob('', contentType, fileName).setDataFromString(content, charset);
-  var saveFolder = DriveApp.getFolderById(saveFolderID);　/// IDからフォルダを取得
-  var newFile = saveFolder.createFile(blob);  /// 変数folderで取得した場所に、指定名称でファイル作成
-  var newFileID = newFile.getId();
+  const blob = Utilities.newBlob('', contentType, fileName).setDataFromString(content, charset);
+  const saveFolder = DriveApp.getFolderById(saveFolderID);  // IDからフォルダを取得
+  const newFile = saveFolder.createFile(blob);  // 変数folderで取得した場所に、指定名称でファイル作成
+  const newFileID = newFile.getId();
   return newFileID;
 }
 /** 指定したフォルダ内のファイルの一覧を取得し、ファイル名とIDを配列として返す関数
  *  @param  {[ID]} searchFolderID : 検索するフォルダのID
- *  @return {[values]] valuesFile (一覧が取得できた　TRUE：フォルダの[[名前], [ID]], FALSE：空の配列を返す)}
+ *  @return {[values]] valuesFile (一覧が取得できた TRUE;フォルダの[[名前], [ID]], FALSE：空の配列を返す)}
 **/
-function getFileNamesAndIDs (searchFolderID) {
-　var valuesFile = [];
-  var searchFolder = DriveApp.getFolderById(searchFolderID);   /// IDから検索対象のフォルダを取得
-  var chldFile = searchFolder.getFiles();   /// 子ファイルの一覧を取得
-  while (chldFile.hasNext()) {   /// 子ファイルを回す
-    var chldFileName = chldFile.next();   /// 名前を取得
-    var chldFileID = chldFileName.getId();   /// IDを取得
-    valuesFile.push( [chldFileName, chldFileID] );
+function getFileNamesAndIDs(searchFolderID) {
+  let valuesFile = [];
+  const searchFolder = DriveApp.getFolderById(searchFolderID);   // IDから検索対象のフォルダを取得
+  const chldFile = searchFolder.getFiles();   // 子ファイルの一覧を取得
+  while (chldFile.hasNext()) {   // 子ファイルを回す
+    const chldFileName = chldFile.next();   // 名前を取得
+    const chldFileID = chldFileName.getId();   // IDを取得
+    valuesFile.push([chldFileName, chldFileID]);
   }
   return valuesFile;
 }
@@ -98,10 +98,10 @@ function getFileNamesAndIDs (searchFolderID) {
  *  @return {[ID]] parentID (対象のフォルダの親フォルダID)}
 **/
 function getParentsID(targetID) {
-  var parentsFolder = DriveApp.getFileById(targetID).getParents();
+  const parentsFolder = DriveApp.getFileById(targetID).getParents();
   while (parentsFolder.hasNext()) {
-   var folder = parentsFolder.next();
-   var parentID = folder.getId();
-   return parentID;
- }
+    const folder = parentsFolder.next();
+    const parentID = folder.getId();
+    return parentID;
+  }
 }
