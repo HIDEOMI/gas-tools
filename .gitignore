@@ -1,6 +1,8 @@
 /bin
 /.env
 
-
+# google-github-actions/auth
 .clasp.json
+appsscript.json
+
 node_modules/
